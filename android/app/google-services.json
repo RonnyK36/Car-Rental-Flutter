@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "785464693741",
+    "project_id": "car-ride-22251",
+    "storage_bucket": "car-ride-22251.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:785464693741:android:9b83dac2220055ac190de4",
+        "android_client_info": {
+          "package_name": "com.nerdherd.carride"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "785464693741-lqq5j53ukj7uainohc695n16hr5h4cdt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpvOzQk_EIYT-fDWlhx1_cSjkYq5OAE0M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "785464693741-lqq5j53ukj7uainohc695n16hr5h4cdt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
