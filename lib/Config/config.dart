@@ -5,7 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class CarRideApp
 {
-   static const String appName = 'e-Shop';
+   // static const String appName = 'e-Shop';
+   static const String appName = 'car-ride';
 
    static SharedPreferences sharedPreferences;
    static FirebaseUser user;
@@ -14,7 +15,8 @@ class CarRideApp
 
    static String collectionUser = "users";
    static String collectionOrders = "orders";
-   static String userCartList = 'userCart';
+   //userCollection is the list of cars he/she selected
+   static String userCollectionList = 'userCollection';
    static String subCollectionAddress = 'userAddress';
 
    static final String userName = 'name';

@@ -8,7 +8,7 @@ import 'package:e_shop/Store/storehome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class MyDrawer extends StatelessWidget {
+class ReusableDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -97,13 +97,13 @@ class MyDrawer extends StatelessWidget {
                   },
                 ),
                 Divider(
-                  height: 10,
+                  height: 5,
                   color: Colors.white,
-                  thickness: 6,
+                  thickness: 1,
                 ),
                 ListTile(
                   leading: Icon(
-                    Icons.home,
+                    Icons.reorder,
                     color: Colors.white,
                   ),
                   title: Text(
@@ -119,13 +119,13 @@ class MyDrawer extends StatelessWidget {
                   },
                 ),
                 Divider(
-                  height: 10,
+                  height: 5,
                   color: Colors.white,
-                  thickness: 6,
+                  thickness: 1,
                 ),
                 ListTile(
                   leading: Icon(
-                    Icons.home,
+                    Icons.shopping_cart,
                     color: Colors.white,
                   ),
                   title: Text(
@@ -141,13 +141,13 @@ class MyDrawer extends StatelessWidget {
                   },
                 ),
                 Divider(
-                  height: 10,
+                  height: 5,
                   color: Colors.white,
-                  thickness: 6,
+                  thickness: 1,
                 ),
                 ListTile(
                   leading: Icon(
-                    Icons.home,
+                    Icons.search,
                     color: Colors.white,
                   ),
                   title: Text(
@@ -163,13 +163,13 @@ class MyDrawer extends StatelessWidget {
                   },
                 ),
                 Divider(
-                  height: 10,
+                  height: 5,
                   color: Colors.white,
-                  thickness: 6,
+                  thickness: 1,
                 ),
                 ListTile(
                   leading: Icon(
-                    Icons.home,
+                    Icons.add_location,
                     color: Colors.white,
                   ),
                   title: Text(
@@ -185,13 +185,13 @@ class MyDrawer extends StatelessWidget {
                   },
                 ),
                 Divider(
-                  height: 10,
+                  height: 5,
                   color: Colors.white,
-                  thickness: 6,
+                  thickness: 1,
                 ),
                 ListTile(
                   leading: Icon(
-                    Icons.home,
+                    Icons.exit_to_app,
                     color: Colors.white,
                   ),
                   title: Text(
@@ -208,11 +208,11 @@ class MyDrawer extends StatelessWidget {
                     });
                   },
                 ),
-                Divider(
-                  height: 10,
-                  color: Colors.white,
-                  thickness: 6,
-                ),
+                // Divider(
+                //   height: 30,
+                //   color: Colors.white,
+                //   thickness: 1,
+                // ),
               ],
             ),
           ),

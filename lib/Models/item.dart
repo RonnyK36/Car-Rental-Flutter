@@ -43,12 +43,12 @@ class ItemModel {
   }
 }
 
-class PublishedDate {
+class PublishDate {
   String date;
 
-  PublishedDate({this.date});
+  PublishDate({this.date});
 
-  PublishedDate.fromJson(Map<String, dynamic> json) {
+  PublishDate.fromJson(Map<String, dynamic> json) {
     date = json['$date'];
   }
 

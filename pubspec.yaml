@@ -38,7 +38,7 @@ flutter:
 
   assets:
     - images/welcome.png
-    - images/welcoe.png
+    - images/welcome1.png
     - images/login.png
     - images/admin.png
     - images/cash.png

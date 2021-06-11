@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_shop/Counters/BookQuantity.dart';
+import 'package:e_shop/Counters/itemQuantity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Authentication/authenication.dart';
 import 'package:e_shop/Config/config.dart';
-import 'Counters/cartitemcounter.dart';
+import 'Counters/cartItemCounter.dart';
 import 'Counters/changeAddresss.dart';
 import 'Counters/totalMoney.dart';
 import 'Store/storehome.dart';
@@ -17,7 +17,7 @@ Future<void> main() async {
 
   CarRideApp.auth = FirebaseAuth.instance;
   CarRideApp.sharedPreferences = await SharedPreferences.getInstance();
-  CarRideApp.firestore= Firestore.instance;
+  CarRideApp.firestore = Firestore.instance;
 
   runApp(MyApp());
 }
@@ -25,13 +25,30 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (c) => CartItemCounter(),
+        ),
+        ChangeNotifierProvider(
+          create: (c) => ItemQuantity(),
+        ),
+        ChangeNotifierProvider(
+          create: (c) => AddressChanger(),
+        ),
+        ChangeNotifierProvider(
+          create: (c) => TotalAmount(),
+        ),
+      ],
+      child: MaterialApp(
         title: 'car-ride',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: Color(0xff0a0e21),
         ),
-        home: SplashScreen());
+        home: SplashScreen(),
+      ),
+    );
   }
 }
 
@@ -46,8 +63,9 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     displaySplash();
   }
+
   displaySplash() {
-    Timer(Duration(seconds: 2), () async {
+    Timer(Duration(seconds: 1), () async {
       if (await CarRideApp.auth.currentUser() != null) {
         Route route = MaterialPageRoute(builder: (_) => StoreHome());
         Navigator.pushReplacement(context, route);
@@ -75,10 +93,14 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('images/welcome.png'),
-            SizedBox(height: 20,),
-            Text("Choose a ride, ride or die",
-            style: TextStyle(color: Colors.white),),
+            Image.asset('images/welcome1.png'),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              "Choose a ride, ride or die",
+              style: TextStyle(color: Colors.white),
+            ),
           ],
         ),
       ),

@@ -92,7 +92,10 @@ class _LoginState extends State<Login> {
                       );
                     });
               },
-              onLongPress: () {},
+              onLongPress: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (c) => AdminSignInPage()));
+              },
               child: Text("Log in"),
             ),
             SizedBox(
@@ -103,20 +106,20 @@ class _LoginState extends State<Login> {
               color: Colors.blueGrey,
               width: _screenWidth * 0.9,
             ),
-            TextButton(
-              onPressed: () =>
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (c) => AdminSignInPage())),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.nature_people,
-                    color: Colors.green,
-                  ),
-                  Text('Log in as Admin'),
-                ],
-              ),
-            ),
+            // TextButton(
+            //   onPressed: () =>
+            //       Navigator.push(context,
+            //           MaterialPageRoute(builder: (c) => AdminSignInPage())),
+            //   child: Row(
+            //     children: [
+            //       Icon(
+            //         Icons.nature_people,
+            //         color: Colors.green,
+            //       ),
+            //       Text('Log in as Admin'),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
       ),
@@ -163,9 +166,9 @@ class _LoginState extends State<Login> {
           .setString(CarRideApp.userEmail, dataSnapShot.data[CarRideApp.userName]);
       await CarRideApp.sharedPreferences
           .setString(CarRideApp.userAvatarUrl, dataSnapShot.data[CarRideApp.userAvatarUrl]);
-      List<String> cartList = dataSnapShot.data[CarRideApp.userCartList].cast<String>();
+      List<String> cartList = dataSnapShot.data[CarRideApp.userCollectionList].cast<String>();
       await CarRideApp.sharedPreferences
-          .setStringList(CarRideApp.userCartList, ["garbageValue"]);
+          .setStringList(CarRideApp.userCollectionList, ["garbageValue"]);
     });
   }
 }

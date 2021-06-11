@@ -209,17 +209,19 @@ class _RegisterState extends State<Register> {
       "email": fUser.email,
       'name': _nameEditingController.text.trim(),
       "url": userImageUrl,
-      CarRideApp.userCartList: ["garbageValue"],
+      CarRideApp.userCollectionList: ["garbageValue"],
     });
     await CarRideApp.sharedPreferences.setString('uid', fUser.uid);
     //alt way to get
     await CarRideApp.sharedPreferences
-        .setString(CarRideApp.userEmail, fUser.email);
-    await CarRideApp.sharedPreferences
         .setString(CarRideApp.userName, _nameEditingController.text);
+    await CarRideApp.sharedPreferences
+        .setString(CarRideApp.userEmail, fUser.email);
+    // await CarRideApp.sharedPreferences
+        // .setString(CarRideApp.userName, fUser.displayName);
     await CarRideApp.sharedPreferences
         .setString(CarRideApp.userAvatarUrl, userImageUrl);
     await CarRideApp.sharedPreferences
-        .setStringList(CarRideApp.userCartList, ["garbageValue"]);
+        .setStringList(CarRideApp.userCollectionList, ["garbageValue"]);
   }
 }
