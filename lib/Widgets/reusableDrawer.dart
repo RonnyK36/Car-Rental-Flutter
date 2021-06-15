@@ -92,7 +92,7 @@ class ReusableDrawer extends StatelessWidget {
                   ),
                   onTap: () {
                     Route route =
-                        MaterialPageRoute(builder: (c) => StoreHome());
+                        MaterialPageRoute(builder: (c) => ShowRoom());
                     Navigator.pushReplacement(context, route);
                   },
                 ),

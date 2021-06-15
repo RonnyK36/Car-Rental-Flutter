@@ -65,9 +65,9 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   displaySplash() {
-    Timer(Duration(seconds: 1), () async {
+    Timer(Duration(seconds: 3), () async {
       if (await CarRideApp.auth.currentUser() != null) {
-        Route route = MaterialPageRoute(builder: (_) => StoreHome());
+        Route route = MaterialPageRoute(builder: (_) => ShowRoom());
         Navigator.pushReplacement(context, route);
       } else {
         Route route = MaterialPageRoute(builder: (_) => AuthenticScreen());
@@ -98,7 +98,7 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 20,
             ),
             Text(
-              "Choose a ride, ride or die",
+              "GET A RIDE",
               style: TextStyle(color: Colors.white),
             ),
           ],

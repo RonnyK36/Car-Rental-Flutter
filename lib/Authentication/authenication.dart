@@ -36,11 +36,12 @@ class _AuthenticScreenState extends State<AuthenticScreen> {
           ),
           centerTitle: true,
           bottom: TabBar(
-            labelColor: Colors.green,
+            labelColor: Colors.white,
             tabs: [
               Tab(
                 icon: Icon(
                   Icons.lock,
+                  color: Colors.white,
                 ),
                 text: 'Login',
               ),

@@ -70,13 +70,13 @@ class _RegisterState extends State<Register> {
                   CustomTextField(
                     controller: _nameEditingController,
                     data: Icons.person,
-                    hintText: "eg Kevin",
+                    hintText: "Enter your name",
                     isObsecure: false,
                   ),
                   CustomTextField(
                     controller: _emailEditingController,
                     data: Icons.email,
-                    hintText: "eg ronny@gmail.com",
+                    hintText: "Enter your email",
                     isObsecure: false,
                   ),
                   CustomTextField(
@@ -159,7 +159,7 @@ class _RegisterState extends State<Register> {
         context: context,
         builder: (c) {
           return LoadingAlertDialog(
-            message: "'Creating your account, Please wait...'",
+            message: "Creating your account, Please wait...",
           );
         });
     String imageFilename = DateTime.now().microsecondsSinceEpoch.toString();
@@ -197,7 +197,7 @@ class _RegisterState extends State<Register> {
     if (firebaseUser != null) {
       saveUserInfo(firebaseUser).then((value) {
         Navigator.pop(context);
-        Route route = MaterialPageRoute(builder: (c) => StoreHome());
+        Route route = MaterialPageRoute(builder: (c) => ShowRoom());
         Navigator.pushReplacement(context, route);
       });
     }

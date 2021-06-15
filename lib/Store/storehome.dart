@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_shop/Store/garage.dart';
 import 'package:e_shop/Store/product_page.dart';
@@ -14,116 +16,146 @@ import '../Models/item.dart';
 
 double width;
 
-class StoreHome extends StatefulWidget {
+class ShowRoom extends StatefulWidget {
   @override
-  _StoreHomeState createState() => _StoreHomeState();
+  _ShowRoomState createState() => _ShowRoomState();
 }
 
-class _StoreHomeState extends State<StoreHome> {
+class _ShowRoomState extends State<ShowRoom> {
+  Future<bool> onBackPressed() {
+    Route route = MaterialPageRoute(builder: (c) => ShowRoom());
+    return Navigator.push(context, route);
+  }
+
+  Future<bool> _onBackPressed() {
+    // trying to handle the backPressed issue
+    return showDialog(
+        context: context,
+        builder: (c) => AlertDialog(
+              title: Text('Do you want to leave the app?'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    exit(0);
+                  },
+                  child: Text('Yes'),
+                ),
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text('No'))
+              ],
+            ));
+  }
+
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     return SafeArea(
-      child: Scaffold(
-        // backgroundColor: Color(0xff0a0e21),
-        appBar: AppBar(
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Color(0xff0a0e21), Color(0xff0a0e30)],
-                begin: const FractionalOffset(0.0, 0.0),
-                end: const FractionalOffset(1.0, 0.0),
-                stops: [0.0, 1.0],
-                tileMode: TileMode.clamp,
+      child: WillPopScope(
+        onWillPop: _onBackPressed,
+        child: Scaffold(
+          // backgroundColor: Color(0xff0a0e21),
+          appBar: AppBar(
+            flexibleSpace: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Color(0xff0a0e21), Color(0xff0a0e30)],
+                  begin: const FractionalOffset(0.0, 0.0),
+                  end: const FractionalOffset(1.0, 0.0),
+                  stops: [0.0, 1.0],
+                  tileMode: TileMode.clamp,
+                ),
+                color: Color(0xff0a0e21),
               ),
-              color: Color(0xff0a0e21),
             ),
-          ),
-          title: Text(
-            'Car Ride',
-            style: TextStyle(
-              fontFamily: "Signatra",
-              fontSize: 55,
+            title: Text(
+              'Car Ride',
+              style: TextStyle(
+                fontFamily: "Signatra",
+                fontSize: 55,
+              ),
             ),
-          ),
-          centerTitle: true,
-          actions: [
-            Stack(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Route route = MaterialPageRoute(builder: (c) => MyGarage());
-                    Navigator.pushReplacement(context, route);
-                  },
-                  icon: Icon(
-                    Icons.car_rental,
-                    color: Colors.green,
+            centerTitle: true,
+            actions: [
+              Stack(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Route route =
+                          MaterialPageRoute(builder: (c) => MyGarage());
+                      Navigator.push(context, route);
+                    },
+                    icon: Icon(
+                      Icons.car_rental,
+                      color: Colors.green,
+                    ),
                   ),
-                ),
-                Positioned(
-                  child: Stack(
-                    children: [
-                      Icon(
-                        Icons.brightness_1,
-                        size: 20,
-                        color: Colors.green,
-                      ),
-                      Positioned(
-                        top: 5,
-                        bottom: 5,
-                        left: 7,
-                        child: Consumer<CartItemCounter>(
-                            builder: (context, counter, _) {
-                          return Text(
-                            counter.count.toString(),
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          );
-                        }),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-        drawer: ReusableDrawer(),
-        body: CustomScrollView(
-          slivers: [
-            SliverPersistentHeader(
-              pinned: true,
-              delegate: SearchBoxDelegate(),
-            ),
-            StreamBuilder<QuerySnapshot>(
-              stream: Firestore.instance
-                  .collection('items')
-                  .limit(10)
-                  .orderBy('publishDate', descending: true)
-                  .snapshots(),
-              builder: (context, dataSnapshot) {
-                return !dataSnapshot.hasData
-                    ? SliverToBoxAdapter(
-                        child: Center(
-                          child: circularProgress(),
+                  Positioned(
+                    child: Stack(
+                      children: [
+                        Icon(
+                          Icons.brightness_1,
+                          size: 20,
+                          color: Colors.green,
                         ),
-                      )
-                    : SliverStaggeredGrid.countBuilder(
-                        crossAxisCount: 1,
-                        staggeredTileBuilder: (c) => StaggeredTile.fit(1),
-                        itemBuilder: (context, index) {
-                          ItemModel model = ItemModel.fromJson(
-                              dataSnapshot.data.documents[index].data);
-                          return sourceInfo(model, context);
-                        },
-                        itemCount: dataSnapshot.data.documents.length,
-                      );
-              },
-            ),
-          ],
+                        Positioned(
+                          top: 5,
+                          bottom: 5,
+                          left: 7,
+                          child: Consumer<CartItemCounter>(
+                              builder: (context, counter, _) {
+                            return Text(
+                              counter.count.toString(),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 8,
+                              ),
+                            );
+                          }),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          drawer: ReusableDrawer(),
+          body: CustomScrollView(
+            slivers: [
+              SliverPersistentHeader(
+                pinned: true,
+                delegate: SearchBoxDelegate(),
+              ),
+              StreamBuilder<QuerySnapshot>(
+                stream: Firestore.instance
+                    .collection('items')
+                    .limit(10)
+                    .orderBy('publishDate', descending: true)
+                    .snapshots(),
+                builder: (context, dataSnapshot) {
+                  return !dataSnapshot.hasData
+                      ? SliverToBoxAdapter(
+                          child: Center(
+                            child: circularProgress(),
+                          ),
+                        )
+                      : SliverStaggeredGrid.countBuilder(
+                          crossAxisCount: 1,
+                          staggeredTileBuilder: (c) => StaggeredTile.fit(1),
+                          itemBuilder: (context, index) {
+                            ItemModel model = ItemModel.fromJson(
+                                dataSnapshot.data.documents[index].data);
+                            return sourceInfo(model, context);
+                          },
+                          itemCount: dataSnapshot.data.documents.length,
+                        );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -206,11 +238,10 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Row(
                   children: [
-
                     //This caused overflow, left out for future corrections
                     //Code for offers tag
 
@@ -312,25 +343,47 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                 Flexible(
                   child: Container(),
                 ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: removeCartFunction == null
-                      ? IconButton(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      child: ElevatedButton(
+
                           onPressed: () {
-                            checkItemInCart(model.shortInfo, context);
-                          },
-                          icon: Icon(
-                            Icons.car_rental,
-                            color: Colors.green,
-                          ),
-                        )
-                      : IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.delete,
-                            color: Colors.red,
-                          ),
-                        ),
+                            Route route =
+                            MaterialPageRoute(builder: (c) => MyGarage());
+                            Navigator.push(context, route);
+                          }, child: Text('Book now')),
+                    ),
+                    IconButton(
+                        onPressed: () {
+
+                        },
+                        icon: Icon(
+                          Icons.favorite_border,
+                          color: Colors.red,
+                        )),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: removeCartFunction == null
+                          ? IconButton(
+                              onPressed: () {
+                                checkItemInCart(model.shortInfo, context);
+                              },
+                              icon: Icon(
+                                Icons.car_rental,
+                                color: Colors.green,
+                              ),
+                            )
+                          : IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              ),
+                            ),
+                    ),
+                  ],
                 ),
                 Divider(
                   height: 5,
@@ -350,33 +403,45 @@ Widget card({Color primaryColor = Colors.redAccent, String imgPath}) {
 }
 
 void checkItemInCart(String shortInfoAsID, BuildContext context) {
-  CarRideApp.sharedPreferences.getStringList(CarRideApp.userCollectionList).contains(shortInfoAsID)
-      ? Fluttertoast.showToast(msg: 'Car already in your collection') : addItemToCart(shortInfoAsID, context);
+  CarRideApp.sharedPreferences
+          .getStringList(CarRideApp.userCollectionList)
+          .contains(shortInfoAsID)
+      ? Fluttertoast.showToast(msg: 'Car already in your collection')
+      : addItemToCart(shortInfoAsID, context);
 }
 
-addItemToCart (String shortInfoAsID, BuildContext context){
-  List tempCartList = CarRideApp.sharedPreferences.getStringList(CarRideApp.userCollectionList);
+addItemToCart(String shortInfoAsID, BuildContext context) {
+  List tempCartList =
+      CarRideApp.sharedPreferences.getStringList(CarRideApp.userCollectionList);
   tempCartList.add(shortInfoAsID);
 
-  CarRideApp.firestore.collection(CarRideApp.collectionUser).document(CarRideApp.sharedPreferences.getString(CarRideApp.userUID)).updateData({
+  CarRideApp.firestore
+      .collection(CarRideApp.collectionUser)
+      .document(CarRideApp.sharedPreferences.getString(CarRideApp.userUID))
+      .updateData({
     CarRideApp.userCollectionList: tempCartList,
   }).then((value) {
     Fluttertoast.showToast(msg: 'Car was added to collection');
-    CarRideApp.sharedPreferences.setStringList(
-        CarRideApp.userCollectionList, tempCartList);
+    CarRideApp.sharedPreferences
+        .setStringList(CarRideApp.userCollectionList, tempCartList);
     Provider.of<CartItemCounter>(context, listen: false).displayResult();
   });
 }
-removeCartFunction(String shortInfoAsID, BuildContext context){
-  List tempCartList = CarRideApp.sharedPreferences.getStringList(CarRideApp.userCollectionList);
+
+removeCartFunction(String shortInfoAsID, BuildContext context) {
+  List tempCartList =
+      CarRideApp.sharedPreferences.getStringList(CarRideApp.userCollectionList);
   tempCartList.remove(shortInfoAsID);
 
-  CarRideApp.firestore.collection(CarRideApp.collectionUser).document(CarRideApp.sharedPreferences.getString(CarRideApp.userUID)).updateData({
+  CarRideApp.firestore
+      .collection(CarRideApp.collectionUser)
+      .document(CarRideApp.sharedPreferences.getString(CarRideApp.userUID))
+      .updateData({
     CarRideApp.userCollectionList: tempCartList,
   }).then((value) {
     Fluttertoast.showToast(msg: 'Car was removed from collection');
-    CarRideApp.sharedPreferences.setStringList(
-        CarRideApp.userCollectionList, tempCartList);
+    CarRideApp.sharedPreferences
+        .setStringList(CarRideApp.userCollectionList, tempCartList);
     Provider.of<CartItemCounter>(context, listen: false).displayResult();
   });
 }

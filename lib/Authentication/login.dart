@@ -151,7 +151,7 @@ class _LoginState extends State<Login> {
       {
         readData(firebaseUser).then((s){
           Navigator.pop(context);
-          Route route = MaterialPageRoute(builder: (c) => StoreHome());
+          Route route = MaterialPageRoute(builder: (c) => ShowRoom());
           Navigator.pushReplacement(context, route);
         });
       }
