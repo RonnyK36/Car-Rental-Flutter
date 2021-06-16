@@ -16,7 +16,7 @@ class OrderCard extends StatelessWidget {
 
 
 
-Widget sourceInfo(ItemModel model, BuildContext context,
+Widget sourceInfo(UserModel model, BuildContext context,
     {Color background})
 {
   width =  MediaQuery.of(context).size.width;

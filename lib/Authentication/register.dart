@@ -17,6 +17,8 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final TextEditingController _nameEditingController = TextEditingController();
+  final TextEditingController _addressEditingController = TextEditingController();
+  final TextEditingController _phoneEditingController = TextEditingController();
   final TextEditingController _emailEditingController = TextEditingController();
   final TextEditingController _passwordEditingController =
       TextEditingController();
@@ -74,9 +76,22 @@ class _RegisterState extends State<Register> {
                     isObsecure: false,
                   ),
                   CustomTextField(
+                    type: TextInputType.emailAddress,
                     controller: _emailEditingController,
                     data: Icons.email,
                     hintText: "Enter your email",
+                    isObsecure: false,
+                  ),CustomTextField(
+                    type: TextInputType.phone,
+                    controller: _phoneEditingController,
+                    data: Icons.phone,
+                    hintText: "Enter your phone number",
+                    isObsecure: false,
+                  ),CustomTextField(
+                    controller: _addressEditingController,
+                    type: TextInputType.streetAddress,
+                    data: Icons.location_on,
+                    hintText: "Enter your address",
                     isObsecure: false,
                   ),
                   CustomTextField(
@@ -137,7 +152,7 @@ class _RegisterState extends State<Register> {
           ? _emailEditingController.text.isNotEmpty &&
                   _passwordEditingController.text.isNotEmpty &&
                   _confirmPasswordEditingController.text.isNotEmpty &&
-                  _nameEditingController.text.isNotEmpty
+                  _nameEditingController.text.isNotEmpty && _addressEditingController.text.isNotEmpty
               ? uploadToStorage()
               : displayDialog("Please check your details again")
           : displayDialog("Passwords do not match.");
@@ -206,6 +221,8 @@ class _RegisterState extends State<Register> {
   Future saveUserInfo(FirebaseUser fUser) async {
     Firestore.instance.collection("users").document(fUser.uid).setData({
       "uid": fUser.uid,
+      "address": _addressEditingController.text.trim(),
+      "phone": _phoneEditingController.text.trim(),
       "email": fUser.email,
       'name': _nameEditingController.text.trim(),
       "url": userImageUrl,
@@ -215,6 +232,10 @@ class _RegisterState extends State<Register> {
     //alt way to get
     await CarRideApp.sharedPreferences
         .setString(CarRideApp.userName, _nameEditingController.text);
+    await CarRideApp.sharedPreferences
+        .setString(CarRideApp.userAddress, _addressEditingController.text);
+    await CarRideApp.sharedPreferences
+        .setString(CarRideApp.userPhone, _phoneEditingController.text);
     await CarRideApp.sharedPreferences
         .setString(CarRideApp.userEmail, fUser.email);
     // await CarRideApp.sharedPreferences

@@ -23,6 +23,8 @@ class CarRideApp
    static final String userEmail = 'email';
    static final String userPhotoUrl = 'photoUrl';
    static final String userUID = 'uid';
+   static final String userAddress= 'address';
+   static final String userPhone= 'phone';
    static final String userAvatarUrl = 'url';
 
    static final String addressID = 'addressID';

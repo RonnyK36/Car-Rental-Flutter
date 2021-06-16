@@ -3,5 +3,5 @@ import 'package:flutter/cupertino.dart';
 
 class Garage {
   Garage({@required this.models});
-  final ItemModel models;
+  final UserModel models;
 }

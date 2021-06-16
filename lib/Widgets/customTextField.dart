@@ -7,11 +7,12 @@ class CustomTextField extends StatelessWidget
   final IconData data;
   final String hintText;
   bool isObsecure = true;
+  final TextInputType type;
 
 
 
   CustomTextField(
-      {Key key, this.controller, this.data, this.hintText,this.isObsecure}
+      {Key key, this.controller, this.data,this.type, this.hintText,this.isObsecure}
       ) : super(key: key);
 
 
@@ -28,6 +29,7 @@ class CustomTextField extends StatelessWidget
       padding: EdgeInsets.all(8),
       margin: EdgeInsets.all(10),
       child: TextFormField(
+        keyboardType: type,
         controller: controller,
         obscureText: isObsecure,
         cursorColor: Theme.of(context).primaryColor,

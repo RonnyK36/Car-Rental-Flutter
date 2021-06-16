@@ -146,7 +146,7 @@ class _ShowRoomState extends State<ShowRoom> {
                           crossAxisCount: 1,
                           staggeredTileBuilder: (c) => StaggeredTile.fit(1),
                           itemBuilder: (context, index) {
-                            ItemModel model = ItemModel.fromJson(
+                            UserModel model = UserModel.fromJson(
                                 dataSnapshot.data.documents[index].data);
                             return sourceInfo(model, context);
                           },
@@ -162,7 +162,7 @@ class _ShowRoomState extends State<ShowRoom> {
   }
 }
 
-Widget sourceInfo(ItemModel model, BuildContext context,
+Widget sourceInfo(UserModel model, BuildContext context,
     {Color background, removeCartFunction}) {
   return InkWell(
     onTap: () {
@@ -194,7 +194,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
           ),
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(

@@ -13,7 +13,7 @@ import '../main.dart';
 import 'garageItems.dart';
 
 class MyGarage extends StatefulWidget {
-  final ItemModel itemModel;
+  final itemModel;
 
   MyGarage({this.itemModel});
   @override
@@ -21,6 +21,7 @@ class MyGarage extends StatefulWidget {
 }
 
 class _MyGarageState extends State<MyGarage> {
+  UserModel itemModel =UserModel();
   int quantity = 1;
 
   @override

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ItemModel {
+class UserModel {
   String title;
   String shortInfo;
   Timestamp publishedDate;
@@ -8,17 +8,23 @@ class ItemModel {
   String longDescription;
   String status;
   int price;
+  String address;
+  int phone;
 
-  ItemModel(
+  UserModel(
       {this.title,
         this.shortInfo,
         this.publishedDate,
         this.thumbnailUrl,
         this.longDescription,
         this.status,
+        this.phone,
+        this.price,
+        this.address,
+
         });
 
-  ItemModel.fromJson(Map<String, dynamic> json) {
+  UserModel.fromJson(Map<String, dynamic> json) {
     title = json['title'];
     shortInfo = json['shortInfo'];
     publishedDate = json['publishedDate'];
@@ -26,6 +32,8 @@ class ItemModel {
     longDescription = json['longDescription'];
     status = json['status'];
     price = json['price'];
+    // phone = json['phone'];
+    address = json['address'];
   }
 
   Map<String, dynamic> toJson() {
@@ -39,6 +47,8 @@ class ItemModel {
     data['thumbnailUrl'] = this.thumbnailUrl;
     data['longDescription'] = this.longDescription;
     data['status'] = this.status;
+    data['address'] = this.address;
+    data['phone'] = this.phone;
     return data;
   }
 }

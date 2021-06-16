@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'garage.dart';
 
 class ProductPage extends StatefulWidget {
-  final ItemModel itemModel;
+  final UserModel itemModel;
 
   ProductPage({this.itemModel});
 
